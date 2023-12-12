@@ -90,8 +90,8 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 " 移動関連"
 nnoremap <C-n> <C-w><C-w> 
 inoremap <C-n> <ESC><C-w><C-w>
-noremap l <End><right>i
-noremap h <Home>i
+"noremap l <End><right>i
+"noremap h <Home>i
 
 nnoremap >  <C-d>
 nnoremap <  <C-u>
@@ -106,15 +106,16 @@ inoremap <<  <ESC><C-u>
 inoremap ..  <ESC><C-}>
 inoremap ,,  <ESC><C-{>
 
-nnoremap <CR>  I<Down><CR><Up><ESC>
+
+nnoremap <CR>  I<End><right><CR><ESC>
 nnoremap <BS>  I<BS><ESC><right>
 
 nnoremap @@  %
 inoremap @@  <ESC>%i
 vnoremap @@  %
 
-nnoremap 0  g;
-nnoremap 9  g,
+nnoremap -  g;
+nnoremap ^  g,
 
 inoremap \\  <right><ESC>Wi
 inoremap //  <ESC>Bi
@@ -137,7 +138,8 @@ set tabstop=4
 set shiftwidth=4
 set list listchars=tab:>\ ,trail:·
 
-source /home/terao/.vim/Hilight_info.vim
+source $HOME/.vim/Hilight_info.vim
+source $HOME/.vim/split.vim
 
 " 折りたたみ関連
 set foldmethod=manual  "折りたたみ範囲の判断基準（デフォルト: manual）
