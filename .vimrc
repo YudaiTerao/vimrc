@@ -117,8 +117,8 @@ vnoremap @@  %
 nnoremap -  g;
 nnoremap ^  g,
 
-inoremap \\  <right><ESC>Wi
-inoremap //  <ESC>Bi
+"inoremap \\  <right><ESC>Wi
+"inoremap //  <ESC>Bi
 
 " 括弧補完"
 inoremap {{ {}<Left>
@@ -127,11 +127,23 @@ inoremap (( ()<Left>
 inoremap << <><Left>
 inoremap "" ""<left>
 inoremap '' ''<left>
+inoremap $$ $$<Left>
+inoremap $$<CR> $$<CR><CR>$$<UP>
+inoremap `` ``<Left>
 inoremap ""<CR> ""<right>
 inoremap '<CR> ''<right>
 inoremap {<CR> {}<Left><CR><ESC><S-o>
 inoremap [<CR> []<Left><CR><ESC><S-o>
 inoremap (<CR> ()<Left><CR><ESC><S-o>)
+
+" latex "
+inoremap eq<CR> \begin{equation}<CR> \label{eq:}<CR>\end{equation}<UP><HOME>
+inoremap eqa<CR> \begin{eqnarray}<CR> \label{eq:}<CR>\end{eqnarray}<UP><HOME>
+inoremap eq*<CR> \begin{equation*}<CR><CR>\end{equation*}<UP>
+inoremap eqa*<CR> \begin{eqnarray*}<CR><CR>\end{eqnarray*}<UP>
+
+
+
 
 set expandtab
 set tabstop=4
