@@ -148,12 +148,14 @@ inoremap <C-k>    <up>
 inoremap <C-l>    <right>
 nnoremap h b
 nnoremap l w
-nnoremap k <up><up><up><up><up>
-nnoremap j <down><down><down><down><down>
-nnoremap <C-h> <home>
-nnoremap <C-l> <end>
-inoremap <C-j>    <down>
-inoremap <C-k>    <up>
+nnoremap k      <up><up><up><up><up>
+nnoremap j      <down><down><down><down><down>
+nnoremap <C-j>  <down>
+nnoremap <C-k>  <up>
+nnoremap <C-h>  <left>
+nnoremap <C-l>  <right>
+nnoremap <S-h>  <home>
+nnoremap <S-l>  <end>
 
 nnoremap <C-n> <C-w><C-w> 
 inoremap <C-n> <ESC><C-w><C-w>
@@ -234,8 +236,8 @@ runtime split.vim
 
 "---filetype---"
 filetype plugin indent on
-autocmd BufRead,BufNewFile *.py  set filetype=python
+"autocmd BufRead,BufNewFile *.py  set filetype=python
 autocmd BufRead,BufNewFile *.tex set filetype=tex
-autocmd BufRead,BufNewFile *.sh  set filetype=bash
+"autocmd BufRead,BufNewFile *.sh  set filetype=bash
 
 
