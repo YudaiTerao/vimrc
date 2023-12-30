@@ -5,22 +5,36 @@ set tabstop=2
 "逆tabの設定"
 set shiftwidth=2
 
+inoremap 。 。<CR><C-d>
+
+inoremap doc<CR> \begin{document}<CR> <BS><CR>\end{document}<UP>
+inoremap chp<CR> \chapter{}<left>
+inoremap sc<CR>  \section{}<left>
+inoremap ssc<CR>  \subsection{}<left>
+inoremap sssc<CR>  \subsubsection{}<left>
+inoremap bcm<CR>  \begin{coment}
+inoremap ecm<CR>  \end{coment}
+
 inoremap eq<CR> \begin{equation}<CR> <BS><CR>  \label{eq:}<CR>\end{equation}<UP><UP>
 inoremap ea<CR> \begin{eqnarray}<CR> <BS><CR>  \label{eq:}<CR>\end{eqnarray}<UP><UP>
 inoremap eq*<CR> \begin{equation*}<CR> <BS><CR>\end{equation*}<UP>
 inoremap ea*<CR> \begin{eqnarray*}<CR> <BS><CR>\end{eqnarray*}<UP>
 inoremap li<CR> \begin{easylist}[itemize]<CR>@<CR>\end{easylist}<UP>
 
+inoremap lw<CR> linewidth
+inoremap tw<CR> textwidth
+
 inoremap fig<CR> 
 \\begin{figure}[H]<CR>
 \\centering<CR>
-\\captionsetup{width=1.0\linewidth, position=top,<CR>
+\\captionsetup{width=1.0\linewidth, position=bottom,<CR>
 \              margin={0.0\linewidth, 0.0\linewidth}, skip=0.02cm,<CR>
 \justification=centering, singlelinecheck=off,<CR>
 \format=plain, indention=8pt, labelsep=space<CR>
 \<BS>}<CR>
-\<BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS>\caption{}<CR>
-\\label{fig:}<CR><CR>
+\ <BS><BS><C-d><C-d><C-d><C-d><C-d><C-d><CR>
+\\caption{}<CR>
+\\label{fig:}<CR>
 \\end{figure}<UP><UP><UP>
 
 inoremap tab<CR> 
@@ -31,7 +45,8 @@ inoremap tab<CR>
 \justification=centering, singlelinecheck=off,<CR>
 \format=plain, indention=8pt, labelsep=space<CR>
 \<BS>}<CR>
-\<BS><C-d><C-d><C-d><C-d><C-d><C-d>\caption{}<CR>
+\<BS><C-d><C-d><C-d><C-d><C-d><C-d>
+\\caption{}<CR>
 \\label{table:}<CR><CR>
 \\end{table}<UP><UP><UP>
 
@@ -51,7 +66,13 @@ inoremap mini<CR>
 \\end{minipage}<CR>
 \}<UP><UP><UP><UP><End><left>
 
-
+inoremap tabr<CR> 
+\\fbox{<CR><C-d>
+\\begin{tabular}{c}<CR>
+\\centering<CR><CR>
+\ <BS><CR>
+\\end{tabular}
+\}<UP><UP><UP>
 
 inoremap ff<CR>   Fig.\ref{fig:}<left>
 inoremap tf<CR>   Table.\ref{table:}<left>

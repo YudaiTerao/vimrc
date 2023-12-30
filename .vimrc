@@ -1,6 +1,8 @@
 " ############################ "
 " ########## Visual ########## "
 " ############################ "
+nmap .v :source $MYVIMRC<CR>
+nmap ,v :vs $HOME/.vim/.vimrc<CR>
 
 "---ColomnNumber---"
 set number
@@ -150,13 +152,13 @@ nnoremap k <up><up><up><up><up>
 nnoremap j <down><down><down><down><down>
 nnoremap <C-h> <home>
 nnoremap <C-l> <end>
-
+inoremap <C-j>    <down>
+inoremap <C-k>    <up>
 
 nnoremap <C-n> <C-w><C-w> 
 inoremap <C-n> <ESC><C-w><C-w>
 "noremap l <End><right>i
 "noremap h <Home>i
-
 
 inoremap <C-up>    <up><up><up><up><up><up>
 inoremap <C-down>  <down><down><down><down><down><down>
@@ -197,7 +199,6 @@ vnoremap @@  %
 "nnoremap -  g;
 "nnoremap ^  g,
 
-
 "inoremap \\  <right><ESC>Wi
 "inoremap //  <ESC>Bi
 "nnoremap <CR>  I<End><right><CR><ESC>
@@ -236,4 +237,5 @@ filetype plugin indent on
 autocmd BufRead,BufNewFile *.py  set filetype=python
 autocmd BufRead,BufNewFile *.tex set filetype=tex
 autocmd BufRead,BufNewFile *.sh  set filetype=bash
+
 
