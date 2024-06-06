@@ -1,9 +1,10 @@
 " ############################ "
 " ########## Visual ########## "
 " ############################ "
-nmap .v :source $MYVIMRC<CR>
+nmap ,,v :source $MYVIMRC<CR>
 nmap ,v :vs $HOME/.vim/.vimrc<CR>
 
+colorscheme desert
 "---ColomnNumber---"
 set number
 autocmd ColorScheme * hi LineNr ctermfg=244 ctermbg=234 
@@ -13,11 +14,13 @@ set cursorline
 autocmd ColorScheme * hi CursorLine cterm=none ctermbg=235
 autocmd ColorScheme * hi CursorLineNr cterm=none ctermfg=202 ctermbg=235 
 
+
+
 "---CoursorColumn---"
-"set cursorcolumn"
+set cursorcolumn
+autocmd ColorScheme * hi CursorColumn cterm=none ctermbg=235
 
 "---Color---"
-colorscheme desert
 autocmd ColorScheme * hi Normal ctermfg=253
 autocmd ColorScheme * hi Comment ctermfg=66
 autocmd ColorScheme * hi Statement ctermfg=130
@@ -70,14 +73,18 @@ set wrapscan
 " 検索語をハイライト表示
 set hlsearch
 
+"--- undoの永続化 ---"
+set undodir=~/.vim/.vim_undo
+set undofile
 
 "--- fold ---"
-set foldmethod=manual  "折りたたみ範囲の判断基準（デフォルト: manual）
+set foldmethod=indent  "折りたたみ範囲の判断基準（デフォルト: manual）
 "shift+vで選択してzfで閉じるか, :開始行, 終了行 fo のコマンドで折り畳みができる
-set foldlevel=1000        "ファイルを開いたときにデフォルトで折りたたむレベル
+set foldlevel=1        "ファイルを開いたときにデフォルトで折りたたむレベル
 "set foldcolumn=       "左端に折りたたみ状態を表示する領域を追加する
 set diffopt+=vertical
-
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
 
 "--- tab ---"
 "tabの代わりに半角スペース"
@@ -93,6 +100,8 @@ set shiftwidth=4
 "tab文字と行末半角スペースの表示"
 set list listchars=tab:>\ ,trail:·
 
+"自動indentのオフ
+set noautoindent
 
 "---Others---"
 
@@ -129,82 +138,40 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 "visual-insert
 inoremap <C-v> <ESC><right><C-v>
 inoremap <C-v> <ESC><right><C-v>
-
+inoremap <C-@> <C-k>
+"
 "undo redo
 inoremap <A-u> <ESC>ui
 inoremap <A-r> <ESC><C-r>i
 vnoremap <A-u> <ESC>u
 vnoremap <A-r> <ESC><C-r>
-
+"
 "copy, paste, delete
 inoremap <A-p> <ESC>pi
 inoremap <A-d> <ESC><S-d>i
 inoremap <A-y> <ESC>yy
 
 " 移動関連"
-inoremap <C-h>    <left>
-inoremap <C-j>    <down>
-inoremap <C-k>    <up>
-inoremap <C-l>    <right>
-nnoremap h b
-nnoremap l w
-nnoremap k      <up><up><up><up><up>
-nnoremap j      <down><down><down><down><down>
-nnoremap <C-j>  <down>
-nnoremap <C-k>  <up>
-nnoremap <C-h>  <left>
-nnoremap <C-l>  <right>
-nnoremap <S-h>  <home>
-nnoremap <S-l>  <end>
+inoremap <C-h>  <left>
+inoremap <C-j>  <down>
+inoremap <C-k>  <up>
+inoremap <C-l>  <right>
+inoremap <C-L>  <End><right>
+inoremap <C-H>  <home>
 
+nnoremap <S-l>  <End><right>
+nnoremap <S-h>  <Home>
+
+nnoremap <A-o>  %<right>i
+nnoremap <A-p>  %%i
+
+"vsモードでの挙動"
 nnoremap <C-n> <C-w><C-w> 
 inoremap <C-n> <ESC><C-w><C-w>
-"noremap l <End><right>i
-"noremap h <Home>i
-
-inoremap <C-up>    <up><up><up><up><up><up>
-inoremap <C-down>  <down><down><down><down><down><down>
-inoremap <C-right> <ESC>wwi
-inoremap <C-left>  <ESC>bi
-vnoremap <C-right> w
-vnoremap <C-left>  b
-
-nnoremap <C-up>    <up><up><up><up><up>
-noremap  <C-down>  <down><down><down><down><down>
-nnoremap <right> w
-nnoremap <left>  b
-nnoremap <C-right> <right>
-nnoremap <C-left>  <left>
-
-nnoremap <C-up>    <up><up><up><up><up>
-noremap  <C-down>  <down><down><down><down><down>
-nnoremap <right> w
-nnoremap <left>  b
-nnoremap <C-right> <right>
-nnoremap <C-left>  <left>
-
-nnoremap .    <down><down><down><down><down>
-nnoremap ,    <up><up><up><up><up>
-"nnoremap .  <C-}>
-"nnoremap ,  <C-{>
-vnoremap .  <C-}>
-vnoremap ,  <C-{>
-inoremap <C-.>  <ESC><C-}>
-inoremap <C-,>  <ESC><C-{>
-
-"対のカッコに移動"
-nnoremap @@  %
-inoremap @@  <ESC>%i
-vnoremap @@  %
 
 "変更履歴をたどる"
 "nnoremap -  g;
 "nnoremap ^  g,
-
-"inoremap \\  <right><ESC>Wi
-"inoremap //  <ESC>Bi
-"nnoremap <CR>  I<End><right><CR><ESC>
-"nnoremap <BS>  I<BS><ESC><right>
 
 " 括弧補完"
 inoremap {{ {}<Left>
@@ -230,14 +197,25 @@ inoremap <F2> <ESC>:w<CR>i
 vnoremap <F2> <ESC>:w<CR>
 
 "--- 拡張機能 ---"
-set runtimepath+=$HOME/.vim/plugin
+set runtimepath+=$HOME/.vim/pack/
 runtime Hilight_info.vim
 runtime split.vim
+runtime dein_init.vim
 
 "---filetype---"
+filetype plugin on
 filetype plugin indent on
 "autocmd BufRead,BufNewFile *.py  set filetype=python
 autocmd BufRead,BufNewFile *.tex set filetype=tex
 "autocmd BufRead,BufNewFile *.sh  set filetype=bash
 
+let g:tex_flavor='latex'
+let @u='/^\\begin{comment}:s /\\begin{comment}/%\\begin{comment}//^\\end{comment}:s /\\end{comment}/%\\end{comment}/?^\\begin{comment}:noh'
+let @c='/^%\\begin{comment}:s /%\\begin{comment}/\\begin{comment}//^%\\end{comment}:s /%\\end{comment}/\\end{comment}/?^\\begin{comment}:noh'
+
+let g:eskk#large_dictionary = {
+\ 'path': "~/.vim/.dict/SKK-JISYO.utf8.L",
+\ 'sorted': 1,
+\ 'encoding': 'utf-8',
+\}
 
