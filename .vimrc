@@ -32,14 +32,14 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 set undodir=~/.vim/.vim_undo
 set undofile
 
-"--- folding ---"
-"折り畳み状態の保存
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+"---folding---"
+"折り畳み状態の保存(折畳以外の設定も全て保存する,~/.vim/viewを消せばリセット)
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
 
 "## manual
 "shift+vで選択してzfで閉じるか, :開始行, 終了行 fo のコマンドで折り畳みができる
-set foldmethod=manual
+"set foldmethod=manual
 
 "## indent
 set foldmethod=indent
@@ -99,8 +99,6 @@ set scrolloff=9999
 
 " ########## Visual ########## "
 " {{{
-" シンタックスハイライトの有効化 
-syntax enable
 
 colorscheme desert
 "---ColomnNumber---"
@@ -136,6 +134,9 @@ autocmd ColorScheme * hi DiffDelete cterm=bold ctermbg=95
 autocmd ColorScheme * hi DiffChange cterm=bold ctermbg=233
 autocmd ColorScheme * hi DiffText   cterm=bold ctermfg=166 ctermbg=60
 
+" シンタックスハイライトの有効化 
+syntax enable
+
 " }}}
 " ########################################################
 
@@ -154,6 +155,10 @@ inoremap <C-h>  <left>
 inoremap <C-j>  <down>
 inoremap <C-k>  <up>
 inoremap <C-l>  <right>
+inoremap <S-h><S-h>  <Home>
+inoremap <S-l><S-l>  <End><right>
+vnoremap <S-h>  <Home>
+vnoremap <S-l>  <End><right>
 nnoremap <S-h>  <Home>
 nnoremap <S-l>  <End><right>
 
@@ -185,25 +190,21 @@ vnoremap <F2> <ESC>:w<CR>
 
 
 "--- 拡張機能 ---"
-"set runtimepath+=$HOME/.vim/pack/
-"runtime Hilight_info.vim
-"runtime split.vim
-"runtime dein_init.vim
+"set runtimepath+=$HOME/.vim/pack
+" :Colorコマンド(SyntaxのGroupを調べることができる)
+runtime Hilight_info.vim
 
 "---filetype---"
-"filetype plugin on
-"filetype plugin indent on
-"autocmd BufRead,BufNewFile *.py  set filetype=python
-"autocmd BufRead,BufNewFile *.tex set filetype=tex
-"autocmd BufRead,BufNewFile *.sh  set filetype=bash
+filetype plugin on
+"filetype indent on
 
+" /.vim/ftplugin/の中のfiletypeごとの設定ファイルが
+" filetypeが特定されたときに読み込まれる
+"set runtimepath+=$HOME/.vim/ftplugin
+
+" 拡張子ごとのファイルを開いたときの処理
+"autocmd BufRead,BufNewFile *.test set filetype=test
+
+"tex->latex"
 let g:tex_flavor='latex'
-let @u='/^\\begin{comment}:s /\\begin{comment}/%\\begin{comment}//^\\end{comment}:s /\\end{comment}/%\\end{comment}/?^\\begin{comment}:noh'
-let @c='/^%\\begin{comment}:s /%\\begin{comment}/\\begin{comment}//^%\\end{comment}:s /%\\end{comment}/\\end{comment}/?^\\begin{comment}:noh'
-
-"let g:eskk#large_dictionary = {
-"\ 'path': "~/.vim/.dict/SKK-JISYO.utf8.L",
-"\ 'sorted': 1,
-"\ 'encoding': 'utf-8',
-"\}
 

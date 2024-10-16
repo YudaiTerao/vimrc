@@ -1,0 +1,30 @@
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# vimhelpの日本語化
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+# 置換前に結果の表示
+[[plugins]]
+repo = 'markonm/traces.vim'
+
+# Google翻訳
+[[plugins]]
+repo = 'skanehira/translate.vim'
+
+# 日本語整形
+[[plugins]]
+repo = 'fuenor/JpFormat.vim'
+
+# color tableの表示
+[[plugins]]
+repo = 'guns/xterm-color-table.vim'
+
+# fzf
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+
+
+
