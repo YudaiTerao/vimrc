@@ -2,13 +2,18 @@
 " ########## General ########## "
 " {{{
 "---folding---"
-"## marker
+"## foldmethod: marker ##
 set foldmethod=marker
 set foldmarker=%{{{,%}}}
 set foldlevel=0        "ファイルを開いたときにデフォルトで折りたたむレベル
 set foldcolumn=0       "左端に折りたたみ状態を表示する領域を追加する
-inoremap cm %{{{
-inoremap mc %}}}
+inoremap cm<CR> %{{{
+inoremap ecm<CR> %}}}
+
+"## foldmethod: syntax ##
+"syntaxで折り畳みができるらしいがなんか上手くいかない
+"set foldmethod=syntax
+"let g:tex_fold_enabled=1
 
 "---indent---"
 setlocal expandtab    "tabの代わりに半角スペース
@@ -23,6 +28,17 @@ setlocal indentkeys=
 "" マルチバイト文字対応
 "set formatoptions=tmM
 "set textwidth=100
+
+"--- spell check ---"
+"let g:tex_nospell=1          "スペルチェックの無効化
+let g:tex_comment_nospell= 1  "コメント内でのスペルチェックの無効化
+
+"--- syntax ---"
+" 詳細は :h tex.vimでhelpを読む
+" call TexNewMathZone(sfx,mathzone,starform)
+call TexNewMathZone("M", "align", 1)    "alignがmathzoneとして認識されないため
+call TexNewMathZone("N", "alignat", 1)  "alignがmathzoneとして認識されないため
+
 " }}}
 " ########################################################
 
@@ -42,21 +58,28 @@ inoremap \cf   \cite{}<left><left>
 inoremap \bf   \bibitem{}<left>
 
 "---section---"
-inoremap \bg     \begin{}<left>
-inoremap \cha    \chapter{}<left>
-inoremap \sec    \section{}<left>
-inoremap \ssec   \subsection{}<left>
-inoremap \sssec  \subsubsection{}<left>
-inoremap \doc    \begin{document}<CR> <BS><CR>\end{document}<UP>
-inoremap \cm     \begin{coment}
-inoremap \ecm    \end{coment}
+inoremap \beg     \begin{}<left>
+inoremap \end     \end{}<left>
+inoremap \cha     \chapter{}<left>
+inoremap \sec     \section{}<left>
+inoremap \subs    \subsection{}<left>
+inoremap \doc     \begin{document}<CR> <BS><CR>\end{document}<UP>
+inoremap \cm      \begin{coment}
+inoremap \ecm     \end{coment}
 
 "---equation, list---"
-inoremap eq<CR>  \begin{equation}<CR> <BS><CR>\label{eq:}<CR>\end{equation}<UP><UP>
-inoremap ea<CR>  \begin{eqnarray}<CR> <BS><CR>\label{eq:}<CR>\end{eqnarray}<UP><UP>
-inoremap eq*<CR> \begin{equation*}<CR> <BS><CR>\end{equation*}<UP>
-inoremap ea*<CR> \begin{eqnarray*}<CR> <BS><CR>\end{eqnarray*}<UP>
-inoremap li<CR>  \begin{easylist}[itemize]<CR>@<CR>\end{easylist}<UP>
+inoremap eq<CR>   \begin{equation}<CR> <BS><CR>\label{eq:}<CR>\end{equation}<UP><UP>
+inoremap al<CR>   \begin{align}<CR> <BS><CR>\label{eq:}<CR>\end{align}<UP><UP>
+inoremap alt<CR>  \begin{alignat}<CR> <BS><CR>\label{eq:}<CR>\end{alignat}<UP><UP>
+inoremap sp<CR>   \begin{split}<CR> <BS><CR>\label{eq:}<CR>\end{split}<UP><UP>
+inoremap al*<CR>  \begin{align*}<CR> <BS><CR>\end{align*}<UP><UP>
+inoremap alt*<CR> \begin{alignat*}<CR> <BS><CR>\end{alignat*}<UP><UP>
+inoremap eq*<CR>  \begin{equation*}<CR> <BS><CR>\end{equation*}<UP>
+inoremap li<CR>   \begin{easylist}[itemize]<CR>@<CR>\end{easylist}<UP>
+inoremap \non \nonumber
+
+"inoremap ea<CR>  \begin{eqnarray}<CR> <BS><CR>\label{eq:}<CR>\end{eqnarray}<UP><UP>
+"inoremap ea*<CR> \begin{eqnarray*}<CR> <BS><CR>\end{eqnarray*}<UP>
 
 "---length---"
 inoremap \lw \linewidth
@@ -141,11 +164,48 @@ let @c='/^%\\begin{comment}:s /%\\begin{comment}/\\begin{comment}//^%\\end{comme
 
 " ########## Package ########## "
 " {{{
-"let g:eskk#large_dictionary = {
-"\ 'path': "~/.vim/.dict/SKK-JISYO.utf8.L",
-"\ 'sorted': 1,
-"\ 'encoding': 'utf-8',
-"\}
+" ## JpFormat ##
+" 整形対象外の正規表現(空文字 か'^$' を指定すると全ての行が整形対象になる)
+" 半角だけの行は整形しない
+"let g:JpFormatExclude = '^[^\x00-\xff]\+$'
+" 日本語以外で始まった場合は整形しない
+let g:JpFormatExclude = '^[\x00-\xff]'
+
+" 日本語の行の連結時には空白を入力しない。
+set formatoptions+=mMj
+
+" 文字数指定を半角/全角単位にする
+" 1:半角 2:全角
+let JpFormatCountMode = 2
+
+" 原稿(折り返し)全角文字数
+" 原稿文字数(全角の折り返し文字数)
+let JpCountChars = 35
+
+" 禁則処理の最大ぶら下がり字数(-1なら全てぶら下げ)
+let JpCountOverChars = 1
+
+" 現在行を整形対象外でも強制的に整形
+nnoremap <silent> gL :JpFormat!<CR>
+vnoremap <silent> gL :JpFormat!<CR>
+
+" 対象外ではない文すべてを整形状態にする
+nnoremap ga :JpFormatAll<CR>
+
+" 非整形状態に戻す
+nnoremap gj :JpJoinAll<CR>
+vnoremap gj :JpJoin<CR>
+
+" 自動整形のON/OFF切替
+nnoremap gt :JpFormatToggle<CR>
+vnoremap gt :JpFormatToggle<CR>
+
+" 挿入モードでキー入力する度に自動整形を行う/行わない
+let g:JpFormatCursorMovedI = 1
+
+if executable('cmigemo')
+    cnoremap <silent> <expr><CR> migemosearch#replace_search_word()."\<CR>"
+endif
 " }}}
 " ########################################################
 

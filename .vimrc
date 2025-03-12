@@ -27,6 +27,7 @@ set wrapscan   " 検索時に最後まで行ったら最初に戻る
 set hlsearch   " 検索語をハイライト表示
 " ESC連打でハイライト解除
 nnoremap <ESC><ESC> :nohlsearch<CR>
+:noremap <space>f f<C-k>
 
 "---変更記録の永続化 ---"
 set undodir=~/.vim/.vim_undo
@@ -151,6 +152,10 @@ nnoremap <C-@> :digraphs<CR>
 inoremap <C-@> <C-k>
 
 "---移動関連---"
+inoremap hh  <ESC>
+inoremap jj  <ESC><down>
+inoremap kk  <ESC><up>
+inoremap ll  <ESC><right><right>
 inoremap <C-h>  <left>
 inoremap <C-j>  <down>
 inoremap <C-k>  <up>
@@ -177,14 +182,12 @@ inoremap $$ $$<Left>
 inoremap `` ``<Left>
 
 "---日本語---"
-set imdisable
 nnoremap い i
 nnoremap う u
 nnoremap ：ｗｑ :wq<CR>
 nnoremap <F2> :w<CR>
 inoremap <F2> <ESC>:w<CR>i
 vnoremap <F2> <ESC>:w<CR>
-
 " }}}
 " ########################################################
 
@@ -208,3 +211,14 @@ filetype plugin on
 "tex->latex"
 let g:tex_flavor='latex'
 
+"--- clever-f ---"
+" 行をまたいで検索する/しない
+let g:clever_f_across_no_line = 1
+" 大文字小文字の区別をしない
+let g:clever_f_ignore_case = 1
+" 大文字を入力したときのみ区別をする
+let g:clever_f_smart_case = 1
+" migemoを使う
+let g:clever_f_use_migemo = 1
+" f;で任意の記号にマッチする
+let g:clever_f_chars_match_any_signs = ';' 

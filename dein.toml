@@ -18,13 +18,24 @@ repo = 'skanehira/translate.vim'
 [[plugins]]
 repo = 'fuenor/JpFormat.vim'
 
-# color tableの表示
+# color tableの表示, :XtermColorTableで表示してくれる
 [[plugins]]
 repo = 'guns/xterm-color-table.vim'
 
 # fzf
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+
+# /や?での検索でmigemoが使えるようになる
+[[plugins]]
+repo = 'rhysd/migemo-search.vim'
+
+# f検索が高速に+migemoが使えるようになる
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+
+
+
 
 
 
